@@ -4,16 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/keitto/fso20osa3.git"
   },
-  "author": "",
+  "author": "Teemu Keränen",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/keitto/fso20osa3/issues"
   },
-  "homepage": "https://github.com/keitto/fso20osa3#readme"
+  "homepage": "https://github.com/keitto/fso20osa3#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
