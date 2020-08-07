@@ -54,6 +54,23 @@ app.get('/api/persons/:id', (req,res) => {
         res.status(404).end()
     }
 })
+const generateId = () => {
+    const maxId = Math.max(...persons.map(p =>p.id))
+    return maxId + 1
+}
+app.post('/api/persons',(req, res) => {
+    const body = req.body
+    console.log('name',body.name)
+    console.log('number',body.number)
+    const person = {
+        name:body.name,
+        number:body.number,
+        id:generateId()
+    }
+    persons = persons.concat(person)
+    res.json(person)
+})
+
 app.delete('/api/persons/:id', (req,res) => {
     const id = Number(req.params.id)
     const person = persons.find(n => n.id === id)
