@@ -54,19 +54,37 @@ app.get('/api/persons/:id', (req,res) => {
         res.status(404).end()
     }
 })
+
 const generateId = () => {
     const maxId = Math.max(...persons.map(p =>p.id))
     return maxId + 1
 }
+
 app.post('/api/persons',(req, res) => {
     const body = req.body
     console.log('name',body.name)
     console.log('number',body.number)
-    const person = {
-        name:body.name,
-        number:body.number,
-        id:generateId()
+
+    if(body.name && body.number) {
+        const person = {
+            name:body.name.trim(),
+            number:body.number.trim(),
+            id:generateId()
+        }
+    } else {
+        res.status(400).json({error:`Name and/or number missing`})
+        return
     }
+
+    if(person.name.length < 1 || person.number.length < 1) { 
+        res.status(400).json({error:`Name and/or number empty`})
+        return
+    }
+    if(persons.map(p => p.name).includes(person.name)) {
+        res.status(400).json({error:`Name already exists, can't add duplicates`})
+        return
+    }
+
     persons = persons.concat(person)
     res.json(person)
 })
