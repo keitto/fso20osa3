@@ -9,6 +9,7 @@ morgan.token('body', function getBody(req) {
 })
 
 app.use(cors())
+app.use(express.static('build')) // express returns ./build/requestedFile if it exists
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] :response-time ms :body'))
 
@@ -43,9 +44,10 @@ let persons = [
       },
     ]
 
-app.get('/',(req,res) => {
-    res.send(rootPage)
-})
+// now uses static in folder build
+// app.get('/',(req,res) => {
+//     res.send(rootPage)
+// })
 app.get('/info', (req,res) => {
     const entries = persons.length
     res.send(`<p>Phonebook has ${entries} entries</p>
